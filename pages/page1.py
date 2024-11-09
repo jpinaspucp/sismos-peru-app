@@ -5,11 +5,9 @@ import plotly.express as px
 
 
 def app():
-    st.title("Página 1 - Gráfico de Dispersión")
-    df = px.data.iris()
-    fig = px.scatter(df, x='sepal_width', y='sepal_length', color='species')
-
-    # Cargar el archivo CSV
+    #st.title("Página 1 - Gráfico de Dispersión")
+    #df = px.data.iris()
+    #fig = px.scatter(df, x='sepal_width', y='sepal_length', color='species')
     # Leer el archivo CSV en un DataFrame
     df = pd.read_csv('./data/Catalogo1960_2023_actualizado.csv')
     # Convertir la columna de fecha a datetime si es necesario
@@ -61,51 +59,9 @@ def app():
     
     # Mostrar los datos filtrados
     st.dataframe(df_filtered)
-    
-    # 1. Mapa de Dispersión Geográfica
-    st.subheader("Distribución Geográfica de los Eventos")
-    fig = px.scatter_geo(df_filtered, lat='LATITUD', lon='LONGITUD', color='MAGNITUD',
-                         hover_name='FECHA_UTC', size='MAGNITUD',
-                         title='Distribución Geográfica de los Eventos')
-    st.plotly_chart(fig)
-    
-    # 2. Gráfico de Líneas para Profundidad vs. Fecha
-    st.subheader("Profundidad de los Eventos a lo Largo del Tiempo")
-    fig = px.line(df_filtered, x='FECHA_UTC', y='PROFUNDIDAD', title='Profundidad de los Eventos a lo Largo del Tiempo')
-    fig.update_layout(xaxis_title='Fecha', yaxis_title='Profundidad (km)')
-    st.plotly_chart(fig)
-    
-    # 3. Gráfico de Dispersión de Magnitud vs. Profundidad
-    st.subheader("Relación entre Profundidad y Magnitud")
-    fig = px.scatter(df_filtered, x='PROFUNDIDAD', y='MAGNITUD', title='Relación entre Profundidad y Magnitud',
-                     labels={'PROFUNDIDAD': 'Profundidad (km)', 'MAGNITUD': 'Magnitud'})
-    st.plotly_chart(fig)
-    
-    # 4. Histograma de la Magnitud
-    st.subheader("Distribución de la Magnitud de los Eventos")
-    fig = px.histogram(df_filtered, x='MAGNITUD', nbins=20, title='Distribución de la Magnitud de los Eventos')
-    fig.update_layout(xaxis_title='Magnitud', yaxis_title='Frecuencia')
-    st.plotly_chart(fig)
-    
-    # 5. Gráfico de Barras de la Frecuencia Mensual de Eventos
-    st.subheader("Frecuencia Mensual de Eventos")
-    df_filtered['MES'] = df_filtered['FECHA_UTC'].dt.month
-    fig = px.histogram(df_filtered, x='MES', title='Frecuencia Mensual de Eventos')
-    fig.update_layout(
-        xaxis_title='Mes',
-        yaxis_title='Frecuencia',
-        xaxis=dict(
-            tickmode='array',
-            tickvals=list(range(1, 13)),
-            ticktext=['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
-                      'Noviembre', 'Diciembre']
-        )
-    )
-    st.plotly_chart(fig)
-    
-    
-    
-    
+
+    # Cargar el archivo CSV
+
     
     
     #st.plotly_chart(fig) ""
